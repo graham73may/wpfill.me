@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset='utf-8'>
+<meta name="description" content="WP FILL ME | WordPress Filler Content for theme testing">
+<meta name="author" content="Merlin Mason for WPFILL.ME - Wordpress Filler Content">
+
+<title>WordPress Filler Content for Theme Testing | WP FILL ME</title>
+
+<link href='img/favicon.ico' rel='shortcut icon'>
+<link href="style.css" rel="stylesheet">
+
+<link href='http://fonts.googleapis.com/css?family=Poly:400,400italic' rel='stylesheet' type='text/css'>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>
+<script>!window.jQuery && document.write('<script src="js/jquery-1.7.0.min.js"><\/script>')</script>
+<script src="js/modernizr.js"></script>
+<script src="js/snippet.js"></script>
+<script src="app.js"></script>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-27673279-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+</head>
+
+<body>
+
+<nav id="refer">
+	<a href="http://www.wpfill.me" class="selected">wpfill.me</a>
+	<a href="http://www.wpfunction.me">wpfunction.me</a>
+	<a href="https://github.com/MerlinBB/wp-starter">wpstarter</a>
+</nav>
+
+<header id="siteheader" class="group">
+<hgroup>
+	<h1><a href="/" title="WP Fill Me, filler dummy content for wordpress themes"><abbr title="WordPress">WP</abbr> <br>Fill <br>Me</a></h1>
+	<h2>Lorum Ipsum vs Real Content — Neither!</h2>
+	<h3>Based on the capabilities of the WordPress TinyMCE editor, WPFill.Me creates filler content designed specifically for robust CSS testing in the WordPress environment.</h3>
+</hgroup>
+</header>
+
+<section id="application">
+	<menu type="toolbar" id="viewoptions" label="view-options">
+			<a href="#preview" class="">Visual</a>
+			<a href="#html" class="selected">HTML</a>
+	</menu>
+
+	<menu type="toolbar" class="group main">
+		<menu id="htmlelementtype" label="html-element-type">
+			<a href="#p" title="INLINE TEXT" class="element paragraph">INLINE TEXT</a>
+			<a href="#h" title="HEADINGS" class="element headings">HEADINGS</a>
+			<a href="#blockquote" title="BLOCKQUOTE" class="element blockquote">BLOCKQUOTE</a>
+			<a href="#ul" title="UL" class="element ul">UL</a>
+			<a href="#ol" title="OL" class="element ol">OL</a>
+			<a href="#table" title="TABLE" class="element table">TABLE</a>
+			<a href="#img" title="IMG" class="element img">IMG</a>
+		</menu>
+		<menu id="mastercontrols" label="master-controls">
+			<a href="#" id="all">Gimme Everything</a>
+			<a href="#" id="clear">Clear All</a>
+		</menu>
+	</menu>
+
+		<textarea class="tabpanel" id="html" readonly="readonly">
+		</textarea>
+
+	<section class="tabpanel" id="preview">
+	</section>
+</section><!-- application -->
+
+<section id="help">
+<hgroup>
+	<h1>Snippets to make your day better</h1>
+	<h2>You want to give your users freedom, that's the point of a CMS, but you also want visual control of what they output. Where to draw the line is a bit of a grey area, and contextual to the project your working on. To get anecdotal about this, I once had a client complain that the 'dotted lists' (&#8226;) they we're creating were coming out as 'dashed lists' (~) ...They didn't understand it was a stylistic decision and thought the site was broken. With this being said, use any of the following with caution.</h2>
+</hgroup>
+<article>
+	<a class="toggler" href="#"><h2>Stop Images Being Wrapped in 'P' Tags</h2></a>
+	<div class="details hide">
+	<table>
+		<thead>
+			<tr>
+				<th>The Problem</th>
+				<th>The PHP</th>
+			</tr>
+		</thead>
+		<tbody>
+		<tr>
+			<td><p>You have very little control of <code>the_content();</code> tag which is used to dump the main body of content onto the page. Images get wrapped inside paragraph tags which makes them inconsistant and potentially harder to style. This code in your functions.php file will help keep the two seperate.</p>
+			<p>This was poached from <a target="_blank" href="http://css-tricks.com/snippets/wordpress/remove-paragraph-tags-from-around-images/">CSS-Tricks.com</a></p></td>
+			<td><pre class="php"><code>
+function filter_ptags_on_images($content){
+   return preg_replace('/&lt;p>\s*(&lt;a .*>)?\s*(&lt;img .* \/>)\s*(\/a>)?\s*&lt;\/p>/iU', '\1\2\3', $content);
+}
+
+add_filter('the_content', 'filter_ptags_on_images');
+			</code></pre></td>
+		</tr>
+		</tbody>
+	</table>
+	</div>
+	</article>
+	<article>
+	<a class="toggler" href="#"><h2>Stop People Making Things Horrible Colors!</h2></a>
+	<div class="details hide">
+	<table>
+		<thead>
+			<tr>
+				<th>The Problem</th>
+				<th>The jQuery</th>
+				<th>The CSS</th>
+			</tr>
+		</thead>
+		<tbody>
+		<tr>
+			<td><p>I'd probably advise against this, unless you have a really good reason! But you can, if you want, target text elements that have inline color styling, remove it and then style them subtly to add some differentation.</p></td>
+			<td><pre class="js"><code>
+$('#content p[style], #content span[style]')
+	.css('color', '')
+	.addClass('resetcolor');
+			</code></pre></td>
+			<td><pre class="css"><code>
+#content {
+	color:#444;
+}
+#content .resetcolor {
+	color:#000;
+	font-weight:bold;
+}</code></pre></td>
+		</tr>
+		</tbody>
+	</table>
+	</div>
+</article>
+<article>
+	<a class="toggler" href="#"><h2>Stop users creating Galleries</h2></a>
+	<div class="details hide">
+	<table>
+		<thead>
+			<tr>
+				<th>The Problem</th>
+				<th>The PHP</th>
+			</tr>
+		</thead>
+		<tbody>
+		<tr>
+			<td><p>WordPress Galleries are implemented pretty badly and aren't that easy to style. It's probably best to code your own custom solution. This snippet in your functions.php file will hide the gallery settings from the media upload box.</p><p>Via <a tagret="_blank" href="http://wp-snippets.com/remove-gallery-settings/">Khanh Ly on wp-snippets</a></p></td>
+			<td><pre class="php"><code>
+&#60;?php add_action( 'admin_head_media_upload_gallery_form', 'mfields_remove_gallery_setting_div' );
+	if( !function_exists( 'mfields_remove_gallery_setting_div' ) ) {
+ 			function mfields_remove_gallery_setting_div() {
+			print '
+            &#60;style type="text/css"&#62;
+                #gallery-settings *{
+                display:none;
+                }
+            &#60;/style&#62;';
+		}
+	}
+?&#62;
+			</code></pre></td>
+		</tr>
+		</tbody>
+	</table>
+	</div>
+</article>
+<article>
+	<a class="toggler" href="#"><h2>Extract Images from the_content();</h2></a>
+	<div class="details hide">
+	<table>
+		<thead>
+			<tr>
+				<th>The Problem</th>
+				<th>The PHP</th>
+			</tr>
+		</thead>
+		<tbody>
+		<tr>
+			<td><p>Trying to work with images in <code>the_content();</code> is a pain. This exacts them all and places them in their own container.</p><p>Via <a tagret="_blank" href="http://wp-snippets.com/split-up-images-and-text/">David Vickhoff on wp-snippets</a></p></td>
+			<td><pre class="php"><code>
+&#60;div class="content-text"&#62;
+	&#60;h2&#62;&#60;?php the_title(); ?&#62;&#60;/h2>
+	&#60;?php
+	ob_start();
+	the_content('Read the full post',true);
+	$postOutput = preg_replace('/&#60;img[^&#62;]+./','', ob_get_contents());
+	ob_end_clean();
+	echo $postOutput;
+	?>
+&#60;/div&#62;
+&#60;div class="content-img"&#62;
+	&#60;?php
+	preg_match_all("/(&#60;img [^&#62;]*&#62;)/",get_the_content(),$matches,PREG_PATTERN_ORDER);
+	for( $i=0; isset($matches[1]) && $i &#60; count($matches[1]); $i++ ) {
+	echo $beforeEachImage . $matches[1][$i] . $afterEachImage;}?&#62;
+&#60;/div&#62;
+			</code></pre></td>
+		</tr>
+		</tbody>
+	</table>
+	</div>
+</article>
+<article>
+	<a class="toggler" href="#"><h2>Targeting Empty Paragraphs</h2></a>
+	<div class="details hide">
+	<table>
+		<thead>
+			<tr>
+				<th>The Problem</th>
+				<th>The jQuery</th>
+				<th>The CSS</th>
+			</tr>
+		</thead>
+		<tbody>
+		<tr>
+			<td><p>It's pretty easy to end up with empty paragraph tags that mess up that beautiful baseline rhythm that you spent ages perfecting. Although, it is worth considering that maybe sometimes people use them intentionally to space stuff... Use at your own peril!</p></td>
+			<td><pre class="js"><code>
+$('#content p')
+	.each(function() {
+	var $this = $(this);
+	if($this.html()
+	.replace(/\s|&nbsp;/g, '').length == 0)
+	$this.addClass('empty');
+});
+			</code></pre></td>
+			<td><pre class="css"><code>
+p.empty {
+	padding:0;
+	margin:0;
+	line-height:0;
+}</code></pre></td>
+		</tr>
+		</tbody>
+	</table>
+	</div>
+	</article>
+	<article>
+	<a class="toggler" href="#"><h2>Targeting Links That Wrap Images</h2></a>
+	<div class="details hide">
+	<table>
+		<thead>
+			<tr>
+				<th>The Problem</th>
+				<th>The jQuery</th>
+				<th>The CSS</th>
+			</tr>
+		</thead>
+		<tbody>
+		<tr>
+			<td><p>Maybe you want to style your links with border-bottom instead of text-decoration? It gives you far more stylistic control and makes the text more readable. You run into problems when images wrapped in links become styled with a border at the bottom which is just plain ugly, lets get rid of it!</p></td>
+			<td><pre class="js"><code>
+$('#content')
+	.find('a')
+	.has('img')
+	.addClass('imgwrap');
+			</code></pre></td>
+			<td><pre class="css"><code>
+a.imgwrap,
+a.imgwrap:hover {
+	border:none;
+	background:none;
+}</code></pre></td>
+		</tr>
+		</tbody>
+	</table>
+	</div>
+</article>
+<article>
+	<a class="toggler" href="#"><h2>Wordpress Image Styling</h2></a>
+	<div class="details hide">
+	<table>
+		<thead>
+			<tr>
+				<th>What We're Doing</th>
+				<th>The CSS</th>
+			</tr>
+		</thead>
+		<tbody>
+		<tr>
+			<td><p>Let's use all the CSS hooks WordPress gives us to style images the way the user expects. I often like to give my paragraphs to <code>margin-bottom</code>, which leads to images being spaced differently depending on whether they're wrapped inside a paragraph. Lets target both occurances and style accordingly.</p></td>
+
+			<td><pre class="css"><code>
+.alignleft {
+	float: left;
+	margin:0 15px 30px 0;
+}
+.aligncenter {
+	display: block;
+	margin: 0 auto 30px auto;
+}
+.alignright {
+	float: right;
+	margin:0 0 30px 15px;
+}
+.alignnone {
+	float: none;
+	display:block;
+	margin:0 0 30px 0;
+}
+.size-full {
+	width:100%;
+	height:auto;
+	margin:0 0 30px 0;
+}
+p .alignleft {
+	float: left;
+	margin:5px 15px 30px 0;
+}
+p .aligncenter {
+	display: block;
+	margin: 5px auto 30px auto;
+}
+p .alignright {
+	float: right;
+	margin:5px 0 30px 15px;
+}
+p .alignnone {
+	float: none;
+	display:block;
+	margin:5px 0 30px 0;
+}
+p .size-full {
+	width:100%;
+	height:auto;
+	margin:5px 0 30px 0;
+}</code></pre></td>
+		</tr>
+		</tbody>
+	</table>
+	</div>
+</article>
+
+<aside id="ads2" class="group">
+
+	<div class="ad">
+		<a href="http://www.mediatemple.net#a_aid=50320e206e410&amp;a_bid=9b605a66" target="_top" rel=”nofollow”><img src="https://affiliate.mediatemple.net/accounts/default1/banners/300x250.jpg" alt="" width="300" height="250" /></a><img style="border:0" src="https://affiliate.mediatemple.net/scripts/imp.php?a_aid=50320e206e410&amp;a_bid=9b605a66" width="1" height="1" alt="" />
+	</div>
+
+	<div class="ad">
+		<script type="text/javascript"><!--
+		google_ad_client = "ca-pub-4830122719357912";
+		/* WP Fill Me Ad 2 */
+		google_ad_slot = "4223380324";
+		google_ad_width = 300;
+		google_ad_height = 250;
+		//-->
+		</script>
+		<script type="text/javascript"
+		src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+		</script>
+	</div>
+
+	<div class="ad last">
+		<script type="text/javascript"><!--
+		google_ad_client = "ca-pub-4830122719357912";
+		/* WP Fill Me Ad 3 */
+		google_ad_slot = "6526036732";
+		google_ad_width = 300;
+		google_ad_height = 250;
+		//-->
+		</script>
+		<script type="text/javascript"
+		src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+		</script>
+	</div>
+
+</aside>
+
+</section><!-- help -->
+<footer id="sitefooter">
+	<article id="footerinfo" class="group">
+		<aside id="author">
+			<h1>Made With Love</h1>
+			<p>Conceived, designed, built and maintained by <a href="http://www.merlinmason.co.uk" target="_blank">Merlin Mason</a>.</p>
+			<p>Merlin is a freelance front end developer from Norwich UK, and currently living in London.</p>
+			<p>He likes riding bikes and watching <em>The Big Lebowski</em> and dislikes talking about himself in the third person.</p>
+			<p>Think this is awesome? Shit? Got any suggestions or tips? I'd love to know...</p>
+			<p>Tweet me up <a target="_blank" href="http://www.twitter.com/merlinmason">@merlinmason</a>.</p>
+			<p>Or message me <span class="safeemail">info [at] merlinmason [dot] co.uk</span>.</p>
+			<p>Tell somebody about this! <a href="https://twitter.com/share" class="twitter-share-button" data-text="Lorum Ipsum vs. Real Content = Neither! —" data-lang="en" data-count="none">Tweet</a></p>
+		</aside>
+		<aside id="news">
+			<h1>Latest News</h1>
+			<ul>
+				<li>
+					<h2>Quick Update</h2>
+					<p>Sunday 29th Jan, 2012. Added a couple of new snippets!</p>
+				</li>
+				<li>
+					<h2>WPFunctionME Goes Live!</h2>
+					<p>Sunday 29th Jan, 2012. Our new sister site, <a href="http://www.wpfunction.me">WPFunction.me</a> has just gone live. It allows you to quickly and easily build functionality for your next WordPress project.</p>
+				</li>
+				<li>
+					<h2>New Project!</h2>
+					<p>Monday 2nd Jan, 2012. Just bought a domain name for a new project! A tool to make working with the WordPress functions.php file a little bit easier... Watch this space!</p>
+				</li>
+				<li>
+					<h2>Site Launch</h2>
+					<p>Wednesday 14th Dec, 2011. I want to thank everybody for their positive feedback. Been going over the site analytics, an amazingly low 0.93% of traffic using IE, I'm amazed, go Chrome!</p>
+				</li>
+				<li>
+					<h2>Site goes live!</h2>
+					<p>Monday 12th Dec, 2011. Hello World!</p>
+				</li>
+			</ul>
+		</aside>
+		<aside id="colophon">
+			<h1>Colophon</h1>
+			<p>This site wouldn't be possible without the sharing of knowledge by the web community and help of several open source projects, thank you!</p>
+			<ul>
+				<li><a target="_blank" href="http://css-tricks.com/">CSS-Tricks.com</a></li>
+				<li><a target="_blank" href="http://nicolasgallagher.com/">Nicolas Gallagher</a></li>
+				<li><a target="_blank" href="http://www.alistapart.com/">A List Apart</a></li>
+				<li><a target="_blank" href="http://www.stackoverflow.com/">Stack Overflow</a></li>
+				<li><a target="_blank" href="http://html5boilerplate.com/">HTML5 Boilerplate</a></li>
+				<li><a target="_blank" href="http://html5doctor.com/">HTML5 Doctor</a></li>
+			</ul>
+			<p>Headlines are set in SAXmono, designed by <a target="_blank" href="http://www.saxsoft.de/">s.a.x. Software</a> &amp; available from <a target="_blank" href="http://www.fontsquirrel.com/fonts/saxMono">Font Squirrel</a>.</p>
+			<p>Body copy is set in Poly and Poly Italic, designed by <a target="_blank" href="http://nsilva.com/">Nicolas Silva</a> &amp; available from <a target="_blank" href="http://www.google.com/webfonts/specimen/Poly">Google Webfonts</a>.</p>
+			<p>This site also uses a healthy dose of <a target="_blank" href="http://www.w3.org/TR/CSS/">CSS3</a>, <a target="_blank" href="http://dev.w3.org/html5/spec/Overview.html">HTML5</a>, <a target="_blank" href="http://jquery.com/">jQuery</a> and a bit of <a target="_blank" href="http://www.steamdev.com/snippet/">Snippet.js</a>.</p>
+		</aside>
+	</article>
+</footer>
+<aside id="snippets">
+
+<div id="p">
+<p>This is a standard paragraph created using the WordPress TinyMCE text editor. It has a <strong>strong tag</strong>, an <em>em tag</em> and a <del>strikethrough</del> which is actually just the del element. There are a few more inline elements which are not in the WordPress admin but we should check for incase your users get busy with the copy and paste. These include <cite>citations</cite>, <abbr title="abbreviation">abbr</abbr>, bits of <code>code</code> and <var>variables</var>, <q>inline quotations</q>, <ins datetime="2011-12-08T20:19:53+00:00">inserted text</ins>, text that is <s>no longer accurate</s> or something <mark>so important</mark> you might want to mark it. We can also style subscript and superscript characters like C0<sub>2</sub>, here is our 2<sup>nd</sup> example. If they are feeling non-semantic they might even use <b>bold</b>, <i>italic</i>, <big>big</big> or <small>small</small> elements too. Incidentally, these HTML4.01 tags have been given new life and semantic meaning in HTML5, you may be interested in reading this <a title="HTML5 Semantics" href="http://csswizardry.com/2011/01/html5-and-text-level-semantics">article by Harry Roberts</a> which gives a nice excuse to test a link.  It is also worth noting in the "kitchen sink" view you can also add <span style="text-decoration: underline;">underline</span> styling and set <span style="color: #ff0000;">text color</span> with pesky inline CSS.</p>
+<p style="text-align: left;">Additionally, WordPress also sets text alignment with inline styles, like this left aligned paragraph. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Cras mattis consectetur purus sit amet fermentum.</p>
+<p style="text-align: right;">This is a right aligned paragraph. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Cras mattis consectetur purus sit amet fermentum.</p>
+<p style="text-align: justify;">This is a justified paragraph. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Cras mattis consectetur purus sit amet fermentum.</p>
+<p style="padding-left: 30px;">Finally, you also have the option of an indented paragraph. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Cras mattis consectetur purus sit amet fermentum.</p> <p>And last, and by no means least, users can also apply the <code>Address</code> tag to text like this:</p> <address>123 Example Street,
+Testville,
+West Madeupsburg,
+CSSland,
+1234</address> <p>...so there you have it, all our text elements</p>
+</div>
+
+<div id="h">
+<h1>Level One Heading</h1>
+<h2>Level Two Heading</h2>
+<h3>Level Three Heading</h3>
+<h4>Level Four Heading</h4>
+<h5>Level Five Heading</h5>
+<h6>Level Six Heading</h6>
+</div>
+
+<div id="blockquote">
+<blockquote>
+	Currently WordPress blockquotes are just wrapped in blockquote tags and have no clear way for the user to define a source. Maybe one day they'll be more semantic (and easier to style) like the version below.
+</blockquote>
+<blockquote cite="http://html5doctor.com/blockquote-q-cite/">
+	<p>HTML5 comes to our rescue with the footer element, allowing us to add semantically separate information about the quote.</p>
+  	<footer>
+  		<cite>
+  			<a href="http://html5doctor.com/blockquote-q-cite/">Oli Studholme, HTML5doctor.com</a>
+  		</cite>
+	</footer>
+</blockquote>
+</div>
+
+<div id="ul">
+<ul>
+	<li>Unordered list item one.</li>
+	<li>Unordered list item two.</li>
+	<li>Unordered list item three.</li>
+	<li>Unordered list item four.</li>
+	<li>By the way, Wordpress does not let you create nested lists through the visual editor.</li>
+</ul>
+</div>
+
+<div id="ol">
+<ol>
+	<li>Ordered list item one.</li>
+	<li>Ordered list item two.</li>
+	<li>Ordered list item three.</li>
+	<li>Ordered list item four.</li>
+	<li>By the way, Wordpress does not let you create nested lists through the visual editor.</li>
+</ol>
+</div>
+
+<div id="table">
+<table>
+	<thead>
+		<tr>
+			<th>Table Head Column One</th>
+			<th>Table Head Column Two</th>
+			<th>Table Head Column Three</th>
+		</tr>
+	</thead>
+	<tfoot>
+		<tr>
+			<td>Table Footer Column One</td>
+			<td>Table Footer Column Two</td>
+			<td>Table Footer Column Three</td>
+		</tr>
+	</tfoot>
+	<tbody>
+		<tr>
+			<td>Table Row Column One</td>
+			<td>Short Text</td>
+			<td>Testing a table cell with a longer amount of text to see what happens, you're not using tables for site layouts are you?</td>
+		</tr>
+		<tr>
+			<td>Table Row Column One</td>
+			<td>Table Row Column Two</td>
+			<td>Table Row Column Three</td>
+		</tr>
+		<tr>
+			<td>Table Row Column One</td>
+			<td>Table Row Column Two</td>
+			<td>Table Row Column Three</td>
+		</tr>
+		<tr>
+			<td>Table Row Column One</td>
+			<td>Table Row Column Two</td>
+			<td>Table Row Column Three</td>
+		</tr>
+		<tr>
+			<td>Table Row Column One</td>
+			<td>Table Row Column Two</td>
+			<td>Table Row Column Three</td>
+		</tr>
+	</tbody>
+</table>
+</div>
+
+<div id="img">
+<p>OK, so images can get quite complicated as we have a few variables to work with! For example the image below has had a caption entered in the WordPress image upload dialog box, this creates a [caption] shortcode which then in turn wraps the whole thing in a <code>div</code> with inline styling! Maybe one day they'll be able to use the <code>figure</code> and <code>figcaption</code> elements for all this. Additionally, images can be wrapped in links which, if you're using anything other than <code>color</code> or <code>text-decoration</code> to style your links can be problematic.</p>
+<div id="attachment_28" class="wp-caption alignnone" style="width: 510px"><a href="#"><img src="http://www.wpfill.me.s3-website-us-east-1.amazonaws.com/img/img_large.png" alt="Your Alt Tag" title="bmxisbest" width="500" height="300" class="size-large wp-image-28" /></a><p class="wp-caption-text">This is the optional caption.</p></div>
+<p>The next issue we face is image alignment, users get the option of <em>None</em>, <em>Left</em>, <em>Right</em> &amp; <em>Center</em>. On top of this, they also get the options of <em>Thumbnail</em>, <em>Medium</em>, <em>Large</em> &amp; <em>Fullsize</em>. You'll probably want to add floats to style the image position so important to remember to clear these to stop images popping below the bottom of your articles.</p>
+
+<img src="http://www.wpfill.me.s3-website-us-east-1.amazonaws.com/img/img_medium.png" alt="Your Alt Title" title="Your Title" width="300" height="200" class="alignright size-medium wp-image-28" />
+<img src="http://www.wpfill.me.s3-website-us-east-1.amazonaws.com/img/img_thumb.png" alt="Your Alt Title" title="Your Title" width="150" height="150" class="alignleft size-thumbnail wp-image-28" />
+<img class="aligncenter size-medium wp-image-28" title="Your Title" src="http://www.wpfill.me.s3-website-us-east-1.amazonaws.com/img/img_medium.png" alt="Your Alt Title" width="300" height="200" />
+<img src="http://www.wpfill.me.s3-website-us-east-1.amazonaws.com/img/img_full.png" alt="Your Alt Title" title="Your Title" width="840" height="300" class="alignnone size-full wp-image-28" />
+<p>Additionally, to add further confusion, images can be wrapped inside paragraph content, lets test some examples here.<img src="http://www.wpfill.me.s3-website-us-east-1.amazonaws.com/img/img_medium.png" alt="Your Alt Title" title="Your Title" width="300" height="200" class="alignright size-medium wp-image-28" />
+Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Maecenas sed diam eget risus varius blandit sit amet non magna. Aenean lacinia bibendum nulla sed consectetur.<img src="http://www.wpfill.me.s3-website-us-east-1.amazonaws.com/img/img_thumb.png" alt="Your Alt Title" title="Your Title" width="150" height="150" class="alignleft size-thumbnail wp-image-28" />Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Maecenas sed diam eget risus varius blandit sit amet non magna. Aenean lacinia bibendum nulla sed consectetur.<img src="http://www.wpfill.me.s3-website-us-east-1.amazonaws.com/img/img_thumb.png" alt="Your Alt Title" title="Your Title" width="150" height="150" class="aligncenter size-thumbnail wp-image-28" />Aenean lacinia bibendum nulla sed consectetur. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Donec ullamcorper nulla non metus auctor fringilla. Aenean lacinia bibendum nulla sed consectetur.</p>
+<p>And then... Finally, users can insert a WordPress [gallery], which is kinda ugly and comes with some CSS stuck into the page to style it (which doesn't actually validate, nor does the markup for the gallery). The amount of columns in the gallery is also changable by the user, but the default is three so we'll work with that for our example with an added fouth image to test verticle spacing.</p>
+<style type='text/css'>
+	#gallery-1 {
+		margin: auto;
+	}
+	#gallery-1 .gallery-item {
+		float: left;
+		margin-top: 10px;
+		text-align: center;
+		width: 33%;
+	}
+	#gallery-1 img {
+		border: 2px solid #cfcfcf;
+	}
+	#gallery-1 .gallery-caption {
+		margin-left: 0;
+	}
+</style>
+<!-- see gallery_shortcode() in wp-includes/media.php -->
+<div id='gallery-1' class='gallery galleryid-1 gallery-columns-3 gallery-size-thumbnail'><dl class='gallery-item'>
+	<dt class='gallery-icon'>
+		<a href='#' title='Your Title'><img width="150" height="150" src="http://www.wpfill.me.s3-website-us-east-1.amazonaws.com/img/img_thumb.png" class="attachment-thumbnail" alt="Your Alt Title" title="Your Title" /></a>
+	</dt></dl><dl class='gallery-item'>
+	<dt class='gallery-icon'>
+		<a href='#' title='Your Title'><img width="150" height="150" src="http://www.wpfill.me.s3-website-us-east-1.amazonaws.com/img/img_thumb.png" class="attachment-thumbnail" alt="Your Alt Title" title="Your Title" /></a>
+	</dt></dl><dl class='gallery-item'>
+	<dt class='gallery-icon'>
+		<a href='#' title='Your Title'><img width="150" height="150" src="http://www.wpfill.me.s3-website-us-east-1.amazonaws.com/img/img_thumb.png" class="attachment-thumbnail" alt="Your Alt Title" title="Your Title" /></a>
+	</dt></dl><br style="clear: both" /><dl class='gallery-item'>
+	<dt class='gallery-icon'>
+		<a href='#' title='Your Title'><img width="150" height="150" src="http://www.wpfill.me.s3-website-us-east-1.amazonaws.com/img/img_thumb.png" class="attachment-thumbnail" alt="Your Alt Title" title="Your Title" /></a>
+	</dt></dl>
+	<br style='clear: both;' />
+</div>
+
+</div>
+</aside>
+
+<aside id="message" style="display:none;">
+	<div>
+		<a class="close" href="#">&#10006;</a>
+		<h1></h1>
+		<p></p>
+	</div>
+</aside>
+
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+
+</body>
+</html>
